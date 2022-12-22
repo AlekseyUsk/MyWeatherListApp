@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="city_name_margin_top">10sp</dimen>
+    <dimen name="CityNameSize">35sp</dimen>
+    <dimen name="cityCoordiMargTop">5dp</dimen>
+    <dimen name="margin_5_dp">5dp</dimen>
+    <dimen name="temperature_value_text_size">14sp</dimen>
+    <dimen name="feels_like_text_size">14sp</dimen>
+    <dimen name="city_list_name_size">25sp</dimen>
+    <dimen name="margin_15_dp">15dp</dimen>
+</resources>
