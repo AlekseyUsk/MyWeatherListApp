@@ -11,6 +11,7 @@ import android.widget.Toast
 
 import androidx.lifecycle.Observer
 import com.hfad.myweatherlistapp.databinding.ActivityMainBinding
+import com.hfad.myweatherlistapp.databinding.FragmentWeatherListBinding
 import com.hfad.myweatherlistapp.viewmodel.AppState
 import com.hfad.myweatherlistapp.viewmodel.WeatherListViewModel
 
@@ -22,13 +23,23 @@ class WeatherListFragment : Fragment() {
     }
 
     private lateinit var viewModel: WeatherListViewModel
-    private lateinit var binding: ActivityMainBinding
+
+    private var _binding: FragmentWeatherListBinding? = null
+    private val binding: FragmentWeatherListBinding
+    get(){
+       return _binding!!
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = ActivityMainBinding.inflate(inflater)
+        _binding = FragmentWeatherListBinding.inflate(inflater)
         return binding.root
     }
 
@@ -50,7 +61,7 @@ class WeatherListFragment : Fragment() {
             AppState.Loading -> TODO()
             is AppState.Success -> {
                 val result = appState.weatherData
-                binding.cityName.text = result.cityName // !!!!! binding НЕВИДИТ XML
+              //  binding.cityName.text = result.city.name // !!!!! binding НЕВИДИТ XML
                 // ДАЛЬШЕ НЕМОГУ ОТРИСОВАТЬ
                 Toast.makeText(requireContext(), "работает$result", Toast.LENGTH_LONG).show()
 
