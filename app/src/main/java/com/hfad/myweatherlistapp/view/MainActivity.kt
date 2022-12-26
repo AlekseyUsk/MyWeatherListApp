@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.hfad.myweatherlistapp.R
 import com.hfad.myweatherlistapp.databinding.ActivityMainBinding
-import com.hfad.myweatherlistapp.databinding.FragmentWeatherListBinding
 
 class MainActivity : AppCompatActivity() {
 

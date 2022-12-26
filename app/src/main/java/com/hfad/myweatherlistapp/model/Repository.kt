@@ -2,8 +2,16 @@ package com.hfad.myweatherlistapp.model
 
 import com.hfad.myweatherlistapp.domain.Weather
 
-interface Repository {
-
-    fun getListWeather(): List<Weather>
+fun interface RepositoryOneWeather {
     fun getWeather(lat: Double, lon: Double): Weather
+}
+
+fun interface RepositoryMultipleWeatherQuery {
+    fun getListWeather(location: Location): List<Weather>
+}
+
+sealed class Location {
+
+    object Russian : Location()
+    object World : Location()
 }

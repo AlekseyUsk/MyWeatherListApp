@@ -1,10 +1,11 @@
 package com.hfad.myweatherlistapp.model
 
 import com.hfad.myweatherlistapp.domain.Weather
+import com.hfad.myweatherlistapp.domain.getDefaultCity
 import com.hfad.myweatherlistapp.viewmodel.AppState
 
-class RepositoryRemoteImpl : Repository {
-    override fun getListWeather(): List<Weather> {
+class RepositoryRemoteImpl : RepositoryMultipleWeatherQuery, RepositoryOneWeather {
+    override fun getListWeather(location: Location): List<Weather> {
         Thread {
             Thread.sleep(200L)
         }.start()
@@ -12,9 +13,8 @@ class RepositoryRemoteImpl : Repository {
     }
 
     override fun getWeather(lat: Double, lon: Double): Weather {
-        Thread {
-            Thread.sleep(300L)
-        }.start()
-        return Weather()
+       return Weather(getDefaultCity())//заглушка
     }
+
+
 }

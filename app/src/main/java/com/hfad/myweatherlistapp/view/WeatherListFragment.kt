@@ -1,22 +1,25 @@
 package com.hfad.myweatherlistapp.view
 
-import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.TextView
 
 import androidx.lifecycle.Observer
-import com.hfad.myweatherlistapp.databinding.ActivityMainBinding
 import com.hfad.myweatherlistapp.databinding.FragmentWeatherListBinding
+import com.hfad.myweatherlistapp.model.Location
 import com.hfad.myweatherlistapp.viewmodel.AppState
 import com.hfad.myweatherlistapp.viewmodel.WeatherListViewModel
 
 
 class WeatherListFragment : Fragment() {
+
+    lateinit var weatherListFragment : WeatherListFragment
+
+    var isRussia: Boolean = true
 
     companion object {
         fun newInstance() = Fragment()
@@ -26,9 +29,9 @@ class WeatherListFragment : Fragment() {
 
     private var _binding: FragmentWeatherListBinding? = null
     private val binding: FragmentWeatherListBinding
-    get(){
-       return _binding!!
-    }
+        get() {
+            return _binding!!
+        }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -44,6 +47,7 @@ class WeatherListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(WeatherListViewModel::class.java)
         viewModel.getLiveData().observe(viewLifecycleOwner, object : Observer<AppState> {
@@ -52,19 +56,27 @@ class WeatherListFragment : Fragment() {
             }
 
         })
-        viewModel.sentRequest()
+        binding.floatingBtn.setOnClickListener {
+            isRussia = !isRussia
+            if (isRussia){
+                viewModel.getWeatherListForRussian(Location.Russian)
+            }else{
+                viewModel.getWeatherListForWorld(Location.World)
+            }
+        }
     }
 
     private fun renderData(appState: AppState) {
         when (appState) {
-            is AppState.Error -> TODO()
-            AppState.Loading -> TODO()
-            is AppState.Success -> {
+            is AppState.Error -> {/* TODO()*/
+            }
+            AppState.Loading -> {/* TODO()*/
+            }
+            is AppState.SuccessOne -> {
                 val result = appState.weatherData
-              //  binding.cityName.text = result.city.name // !!!!! binding НЕВИДИТ XML
-                // ДАЛЬШЕ НЕМОГУ ОТРИСОВАТЬ
-                Toast.makeText(requireContext(), "работает$result", Toast.LENGTH_LONG).show()
-
+            }
+            is AppState.SuccessMulti ->{
+                binding.FragmentRecyclerView.adapter = WeatherListAdapter(appState.weatherList)
             }
         }
 
