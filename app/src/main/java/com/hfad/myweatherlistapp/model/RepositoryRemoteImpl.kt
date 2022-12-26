@@ -6,9 +6,6 @@ import com.hfad.myweatherlistapp.viewmodel.AppState
 
 class RepositoryRemoteImpl : RepositoryMultipleWeatherQuery, RepositoryOneWeather {
     override fun getListWeather(location: Location): List<Weather> {
-        Thread {
-            Thread.sleep(200L)
-        }.start()
         return listOf(Weather())
     }
 

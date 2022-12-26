@@ -2,16 +2,17 @@ package com.hfad.myweatherlistapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import com.hfad.myweatherlistapp.R
-import com.hfad.myweatherlistapp.databinding.ActivityMainBinding
+import com.hfad.myweatherlistapp.databinding.FragmentWeatherListBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding:ActivityMainBinding
+    lateinit var binding:FragmentWeatherListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = FragmentWeatherListBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
