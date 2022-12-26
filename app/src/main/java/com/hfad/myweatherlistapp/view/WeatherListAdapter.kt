@@ -27,7 +27,7 @@ class WeatherListAdapter(val dataList: List<Weather>) :
 
         fun bind(weather: Weather) {
             val binding = FragmentWeatherListBinding.bind(itemView)
-            binding.cityName.text = weather.city.name // горит крассным!!
+            binding.cityName.text = weather.city.name // ГОРИТ КРАССНЫМ!!!!
         }
     }
 }
