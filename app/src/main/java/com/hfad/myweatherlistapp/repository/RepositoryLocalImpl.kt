@@ -1,4 +1,4 @@
-package com.hfad.myweatherlistapp.model
+package com.hfad.myweatherlistapp.repository
 
 import com.hfad.myweatherlistapp.domain.Weather
 import com.hfad.myweatherlistapp.domain.getRussianCities

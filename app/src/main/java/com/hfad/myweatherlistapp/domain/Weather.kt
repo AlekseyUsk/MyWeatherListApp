@@ -1,18 +1,22 @@
 package com.hfad.myweatherlistapp.domain
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Weather(
 
     val city: City = getDefaultCity(),
-    val temperature: Double = 0.0,
-    val feelsLike: Double = 0.0
-)
-
-data class City(
+    var temperature: Double = 0.0,
+    var feelsLike: Double = 0.0
+): Parcelable
+@Parcelize
+data class City (
 
     val name: String,
     val lat: Double,
     val lon: Double
-)
+): Parcelable
 
 fun getDefaultCity() = City("Москва", 55.755826, 37.617299900000035)
 

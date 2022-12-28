@@ -3,9 +3,7 @@ package com.hfad.myweatherlistapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.hfad.myweatherlistapp.domain.getWorldCities
-import com.hfad.myweatherlistapp.model.*
-import java.lang.Thread.sleep
+import com.hfad.myweatherlistapp.repository.*
 
 class WeatherListViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>(),
@@ -20,7 +18,7 @@ class WeatherListViewModel(
         return liveData
     }
 
-    private fun choiceRepository() {
+    private fun choiceRepository() {   // действия
         if (isConnection()) {
             repositoryOneWeather = RepositoryRemoteImpl()
         } else {
@@ -45,11 +43,11 @@ class WeatherListViewModel(
         }
     }
 
-    fun getWeatherListForRussian(location: Location) {
+    fun getWeatherListForRussian() {
        sentRequest(Location.Russian)
     }
 
-    fun getWeatherListForWorld(location: Location) {
+    fun getWeatherListForWorld() {
        sentRequest(Location.World)
     }
 

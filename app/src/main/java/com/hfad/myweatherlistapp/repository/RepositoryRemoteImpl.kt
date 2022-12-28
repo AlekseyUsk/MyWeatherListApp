@@ -1,8 +1,7 @@
-package com.hfad.myweatherlistapp.model
+package com.hfad.myweatherlistapp.repository
 
 import com.hfad.myweatherlistapp.domain.Weather
 import com.hfad.myweatherlistapp.domain.getDefaultCity
-import com.hfad.myweatherlistapp.viewmodel.AppState
 
 class RepositoryRemoteImpl : RepositoryMultipleWeatherQuery, RepositoryOneWeather {
     override fun getListWeather(location: Location): List<Weather> {
