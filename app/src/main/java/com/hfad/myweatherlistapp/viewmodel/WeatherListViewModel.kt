@@ -3,37 +3,54 @@ package com.hfad.myweatherlistapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.hfad.myweatherlistapp.model.Repository
-import com.hfad.myweatherlistapp.model.RepositoryLocalImpl
-import com.hfad.myweatherlistapp.model.RepositoryRemoteImpl
-import java.lang.Thread.sleep
+import com.hfad.myweatherlistapp.repository.*
 
 class WeatherListViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>(),
-    var repository: Repository
 ) :
     ViewModel() {
+
+    lateinit var repositoryMultipleWeatherQuery: RepositoryMultipleWeatherQuery
+    lateinit var repositoryOneWeather: RepositoryOneWeather
 
     fun getLiveData(): MutableLiveData<AppState> {
         choiceRepository()
         return liveData
     }
 
-    private fun choiceRepository() {
+    private fun choiceRepository() {   // действия
         if (isConnection()) {
-            repository = RepositoryRemoteImpl()
+            repositoryOneWeather = RepositoryRemoteImpl()
         } else {
-            repository = RepositoryLocalImpl()
+            RepositoryLocalImpl()
+        }
+        repositoryMultipleWeatherQuery = RepositoryLocalImpl()
+    }
+
+    private fun sentRequest(location: Location) {
+        // choiceRepository()
+        liveData.value = AppState.Loading
+        if (false) {
+            liveData.postValue(AppState.Error(throw IllegalStateException("ошибка")))
+        } else {
+            liveData.postValue(
+                AppState.SuccessMulti(
+                    repositoryMultipleWeatherQuery.getListWeather(
+                        location
+                    )
+                )
+            )
         }
     }
 
-    fun sentRequest() {
-        choiceRepository()
-        if (isConnection())
-            liveData.value = AppState.Loading
-        liveData.postValue(AppState.Success(repository.getWeather(55.755826, 37.617299900000035)))
-
+    fun getWeatherListForRussian() {
+       sentRequest(Location.Russian)
     }
+
+    fun getWeatherListForWorld() {
+       sentRequest(Location.World)
+    }
+
 
     private fun isConnection(): Boolean {
         return false
