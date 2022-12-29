@@ -49,7 +49,7 @@ class FragmentDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       val weather = arguments?.getParcelable<Weather>(BUNDLE_WEATHER_EXTRA)
+        val weather = arguments?.getParcelable<Weather>(BUNDLE_WEATHER_EXTRA)
         renderData(weather)
     }
 

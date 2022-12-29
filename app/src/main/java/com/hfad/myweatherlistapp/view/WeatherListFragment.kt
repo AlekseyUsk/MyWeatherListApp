@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.hfad.myweatherlistapp.R
 import com.hfad.myweatherlistapp.databinding.FragmentWeatherListBinding
 import com.hfad.myweatherlistapp.domain.Weather
+import com.hfad.myweatherlistapp.repository.Location
 import com.hfad.myweatherlistapp.view.details.FragmentDetails
 import com.hfad.myweatherlistapp.view.details.callback.OnItemClick
 import com.hfad.myweatherlistapp.viewmodel.AppState
@@ -22,7 +23,9 @@ class WeatherListFragment : Fragment(), OnItemClick {
     var isRussia: Boolean = true
 
     companion object {
-        fun newInstance() = Fragment()
+        fun newInstance() : WeatherListFragment{
+            return WeatherListFragment()
+        }
     }
 
     private lateinit var viewModel: WeatherListViewModel
@@ -59,12 +62,12 @@ class WeatherListFragment : Fragment(), OnItemClick {
         binding.floatingBtn.setOnClickListener {
             isRussia = !isRussia
             if (isRussia) {
-                viewModel.getWeatherListForRussian()
+                viewModel.getWeatherListForRussian(Location.Russian)
             } else {
                 viewModel.getWeatherListForWorld()
             }
         }
-        // viewModel.getWeatherListForRussian(Location.Russian) дефолтное поставлю потом
+         viewModel.getWeatherListForRussian(Location.Russian) //дефолтное поставлю потом
     }
 
     private fun renderData(appState: AppState) {   //реакция на запросы

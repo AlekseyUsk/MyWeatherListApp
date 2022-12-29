@@ -43,7 +43,7 @@ class WeatherListViewModel(
         }
     }
 
-    fun getWeatherListForRussian() {
+    fun getWeatherListForRussian(russian: Location.Russian) {
        sentRequest(Location.Russian)
     }
 
