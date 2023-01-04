@@ -1,13 +1,12 @@
 package com.hfad.myweatherlistapp.view
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.hfad.myweatherlistapp.R
 import com.hfad.myweatherlistapp.databinding.FragmentWeatherListBinding
 import com.hfad.myweatherlistapp.domain.Weather
@@ -23,7 +22,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
     var isRussia: Boolean = true
 
     companion object {
-        fun newInstance() : WeatherListFragment{
+        fun newInstance(): WeatherListFragment {
             return WeatherListFragment()
         }
     }
@@ -67,23 +66,37 @@ class WeatherListFragment : Fragment(), OnItemClick {
                 viewModel.getWeatherListForWorld()
             }
         }
-         viewModel.getWeatherListForRussian(Location.Russian) //дефолтное поставлю потом
+        viewModel.getWeatherListForRussian(Location.Russian) //дефолтное поставлю потом
     }
 
     private fun renderData(appState: AppState) {   //реакция на запросы
         when (appState) {
-            is AppState.Error -> {/* TODO()*/
+            is AppState.Error -> {
+                binding.showResult()
             }
-            AppState.Loading -> {/* TODO()*/
+            AppState.Loading -> {
+                binding.loading()
             }
             is AppState.SuccessOne -> {
+                binding.showResult()
                 val result = appState.weatherData
             }
             is AppState.SuccessMulti -> {
+                binding.showResult()
                 binding.FragmentRecyclerView.adapter =
                     WeatherListAdapter(appState.weatherList, this)
             }
         }
+    }
+
+    fun FragmentWeatherListBinding.loading() {
+        this.FragmentLoadingLayout.visibility = View.VISIBLE
+        this.floatingBtn.visibility = View.GONE
+    }
+
+    fun FragmentWeatherListBinding.showResult() {
+        this.FragmentLoadingLayout.visibility = View.GONE
+        this.floatingBtn.visibility = View.VISIBLE
     }
 
     override fun onItemClick(weather: Weather) {

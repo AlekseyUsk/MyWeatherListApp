@@ -2,14 +2,13 @@ package com.hfad.myweatherlistapp.view.details
 
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import com.hfad.myweatherlistapp.databinding.FragmentDetailsBinding
 import com.hfad.myweatherlistapp.domain.Weather
-import com.hfad.myweatherlistapp.view.WeatherListFragment
 import kotlinx.android.synthetic.main.fragment_details.*
 
 class FragmentDetails : Fragment() {

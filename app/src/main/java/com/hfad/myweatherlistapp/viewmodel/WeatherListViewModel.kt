@@ -4,6 +4,7 @@ package com.hfad.myweatherlistapp.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hfad.myweatherlistapp.repository.*
+import kotlin.random.Random
 
 class WeatherListViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>(),
@@ -29,30 +30,33 @@ class WeatherListViewModel(
 
     private fun sentRequest(location: Location) {
         // choiceRepository()
-        liveData.value = AppState.Loading
-        if (false) {
-            liveData.postValue(AppState.Error(throw IllegalStateException("ошибка")))
-        } else {
-            liveData.postValue(
-                AppState.SuccessMulti(
-                    repositoryMultipleWeatherQuery.getListWeather(
-                        location
+//        liveData.value = AppState.Loading
+//        Thread {
+//            Thread.sleep(300L)
+//            if ((0..3).random(Random(System.currentTimeMillis()))==10) {
+//                liveData.postValue(AppState.Error(throw IllegalStateException("Что то пошло не так...")))
+//            } else {
+                liveData.postValue(
+                    AppState.SuccessMulti(
+                        repositoryMultipleWeatherQuery.getListWeather(
+                            location
+                        )
                     )
                 )
-            )
-        }
-    }
+            }
+     //   }
+  //  }
 
     fun getWeatherListForRussian(russian: Location.Russian) {
-       sentRequest(Location.Russian)
+        sentRequest(Location.Russian)
     }
 
     fun getWeatherListForWorld() {
-       sentRequest(Location.World)
+        sentRequest(Location.World)
     }
 
 
-    private fun isConnection(): Boolean {
+    fun isConnection(): Boolean {
         return false
     }
 }
