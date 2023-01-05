@@ -4,7 +4,6 @@ package com.hfad.myweatherlistapp.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hfad.myweatherlistapp.repository.*
-import kotlin.random.Random
 
 class WeatherListViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>(),
@@ -54,7 +53,6 @@ class WeatherListViewModel(
     fun getWeatherListForWorld() {
         sentRequest(Location.World)
     }
-
 
     fun isConnection(): Boolean {
         return false

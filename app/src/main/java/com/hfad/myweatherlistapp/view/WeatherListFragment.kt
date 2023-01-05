@@ -66,7 +66,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
                 viewModel.getWeatherListForWorld()
             }
         }
-        viewModel.getWeatherListForRussian(Location.Russian) //дефолтное поставлю потом
+        viewModel.getWeatherListForRussian(Location.Russian)
     }
 
     private fun renderData(appState: AppState) {   //реакция на запросы

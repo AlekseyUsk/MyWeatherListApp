@@ -15,14 +15,13 @@ class FragmentDetails : Fragment() {
 
     companion object {
         const val BUNDLE_WEATHER_EXTRA = "BUNDLE_WEATHER_EXTRA"
-        fun newInstance(weather: Weather): FragmentDetails {
-            val bundle = Bundle()
-            bundle.putParcelable(BUNDLE_WEATHER_EXTRA, weather)
-            val fr = FragmentDetails()
-            fr.arguments = bundle
-            return fr
+        fun newInstance(weather: Weather) = FragmentDetails().also { fr ->
+            fr.arguments = Bundle().apply {
+                putParcelable(BUNDLE_WEATHER_EXTRA, weather)
+            }
         }
     }
+
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding: FragmentDetailsBinding
@@ -48,12 +47,12 @@ class FragmentDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val weather = arguments?.getParcelable<Weather>(BUNDLE_WEATHER_EXTRA)
-        renderData(weather)
+        val weather = arguments?.let { args -> args.getParcelable<Weather>(BUNDLE_WEATHER_EXTRA) }
+        weather?.let { renderData(weather) }
     }
 
     private fun renderData(weather: Weather?) {
-        if (weather != null) {
+        weather?.also {
             cityName.text = weather.city.name
             temperatureValue.text = weather.temperature.toString()
             feelsLikeValue.text = weather.feelsLike.toString()

@@ -28,9 +28,12 @@ class WeatherListAdapter(private val dataList: List<Weather>,private val callbac
 
         fun bind(weather: Weather) {
             val binding = FragmentWeatherListRecyclerItemBinding.bind(itemView)
-            binding.cityName.text = weather.city.name
-            binding.root.setOnClickListener {
-                callback.onItemClick(weather)
+            with(binding){
+                this.cityName.text = weather.city.name
+                this.root.setOnClickListener {
+                    callback.onItemClick(weather)
+            }
+
             }
         }
     }
