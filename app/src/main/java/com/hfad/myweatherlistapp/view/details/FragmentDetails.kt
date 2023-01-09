@@ -9,9 +9,11 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.hfad.myweatherlistapp.databinding.FragmentDetailsBinding
 import com.hfad.myweatherlistapp.domain.Weather
+import com.hfad.myweatherlistapp.repository.dto.WeatherDTO
+import com.hfad.myweatherlistapp.utils.WeatherLoader
 import kotlinx.android.synthetic.main.fragment_details.*
 
-class FragmentDetails : Fragment() {
+class FragmentDetails : Fragment(){
 
     companion object {
         const val BUNDLE_WEATHER_EXTRA = "BUNDLE_WEATHER_EXTRA"
@@ -47,11 +49,26 @@ class FragmentDetails : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val weather = arguments?.let { args -> args.getParcelable<Weather>(BUNDLE_WEATHER_EXTRA) }
-        weather?.let { renderData(weather) }
+
+        weather?.let { weatherLocal ->
+
+            WeatherLoader.request(weatherLocal.city.lat, weatherLocal.city.lon) { weatherDTO ->
+                bindWeatherLocalWeatherDTO(weatherLocal, weatherDTO as WeatherDTO)
+            }
+        }
     }
 
-    private fun renderData(weather: Weather?) {
-        weather?.also {
+    private fun bindWeatherLocalWeatherDTO(weatherLocal: Weather, weatherDTO: WeatherDTO) {
+        requireActivity().runOnUiThread {
+            renderData(weatherLocal.apply {
+                weatherLocal.feelsLike = weatherDTO.fact.feelsLike
+                weatherLocal.temperature = weatherDTO.fact.temp
+            })
+        }
+    }
+
+    fun renderData(weather: Weather) {
+        with(binding) {
             cityName.text = weather.city.name
             temperatureValue.text = weather.temperature.toString()
             feelsLikeValue.text = weather.feelsLike.toString()
