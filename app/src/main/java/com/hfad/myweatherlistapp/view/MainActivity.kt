@@ -5,16 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.hfad.myweatherlistapp.R
 
 class MainActivity : AppCompatActivity() {
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            setContentView(R.layout.activity_main)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-            if (savedInstanceState == null) {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, WeatherListFragment.newInstance())
-                    .commit()
-            }
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, WeatherListFragment.newInstance())
+                .commit()
         }
     }
+
+}
 
 

@@ -1,8 +1,11 @@
 package com.hfad.myweatherlistapp.repository.dto
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Forecast(
     @SerializedName("biomet")
     val biomet: Biomet,
@@ -28,4 +31,4 @@ data class Forecast(
     val sunset: String,
     @SerializedName("week")
     val week: Int
-)
+) : Parcelable

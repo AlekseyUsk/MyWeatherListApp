@@ -16,22 +16,26 @@ object WeatherLoader {
 
 
     @RequiresApi(Build.VERSION_CODES.N)
-    fun request(lat: Double, lon: Double, onResponse: (Any) -> Unit) : Unit{
+    fun request(lat: Double, lon: Double, onResponse: (Any) -> Unit): Unit {
 
         val uri = URL("https://api.weather.yandex.ru/v2/forecast?lat=${lat}&lon=${lon}")
-        var myConnection: HttpsURLConnection? = null
 
-        myConnection = uri.openConnection() as HttpsURLConnection
-        myConnection.readTimeout = 3000
-        myConnection.addRequestProperty("X-Yandex-API-Key",BuildConfig.WEATHER_API_KEY
-        )
-        val handler = Handler(Looper.myLooper()!!)
         Thread {
-            val reader = BufferedReader(InputStreamReader(myConnection.inputStream)) // читаем поток запроса
-            val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
-            onResponse(weatherDTO)
+            var myConnection: HttpsURLConnection? = null
+            myConnection = uri.openConnection() as HttpsURLConnection
+            try {
+                myConnection.readTimeout = 3000
+                myConnection.addRequestProperty(YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
+                val handler = Handler(Looper.myLooper()!!)
+                val reader =
+                    BufferedReader(InputStreamReader(myConnection.inputStream)) // читаем поток запроса
+                val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
+                onResponse(weatherDTO)
+            } catch (e: java.lang.Exception) {
+
+            } finally {
+                myConnection.disconnect()
+            }
         }.start()
     }
 }
-
-//"761b1538-ff90-4863-b944-568f28907683"
