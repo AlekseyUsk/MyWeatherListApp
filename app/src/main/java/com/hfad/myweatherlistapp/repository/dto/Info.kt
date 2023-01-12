@@ -1,8 +1,11 @@
 package com.hfad.myweatherlistapp.repository.dto
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Info(
     @SerializedName("def_pressure_mm")
     val defPressureMm: Int,
@@ -32,4 +35,4 @@ data class Info(
     val url: String,
     @SerializedName("zoom")
     val zoom: Int
-)
+) : Parcelable

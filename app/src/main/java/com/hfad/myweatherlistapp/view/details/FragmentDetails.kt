@@ -1,19 +1,28 @@
 package com.hfad.myweatherlistapp.view.details
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.hfad.myweatherlistapp.databinding.FragmentDetailsBinding
 import com.hfad.myweatherlistapp.domain.Weather
 import com.hfad.myweatherlistapp.repository.dto.WeatherDTO
 import com.hfad.myweatherlistapp.utils.WeatherLoader
+import com.hfad.myweatherlistapp.view.service.BUNDLE_CITY_KEY
+import com.hfad.myweatherlistapp.view.service.BUNDLE_WEATHER_DTO_KEY
+import com.hfad.myweatherlistapp.view.service.WAVE
 import kotlinx.android.synthetic.main.fragment_details.*
 
-class FragmentDetails : Fragment(){
+class FragmentDetails : Fragment() {
 
     companion object {
         const val BUNDLE_WEATHER_EXTRA = "BUNDLE_WEATHER_EXTRA"
@@ -23,7 +32,6 @@ class FragmentDetails : Fragment(){
             }
         }
     }
-
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding: FragmentDetailsBinding
@@ -54,6 +62,27 @@ class FragmentDetails : Fragment(){
 
             WeatherLoader.request(weatherLocal.city.lat, weatherLocal.city.lon) { weatherDTO ->
                 bindWeatherLocalWeatherDTO(weatherLocal, weatherDTO as WeatherDTO)
+
+                //настраиваем приемник
+                LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
+                    object : BroadcastReceiver() {
+                        override fun onReceive(context: Context?, intent: Intent?) {
+                            Log.d("@@@", "onReceive ${binding.root}")
+                            intent?.let {
+                                it.getParcelableExtra<WeatherDTO>(BUNDLE_WEATHER_DTO_KEY)
+                                    ?.let { weatherDTO ->
+                                        bindWeatherLocalWeatherDTO(weatherLocal, weatherDTO)
+                                    }
+                            }
+
+                        }
+                    }, IntentFilter(WAVE)
+                )
+                //запускаем сервис и передаем город
+                requireActivity().startService(Intent().apply {
+                    putExtra(BUNDLE_CITY_KEY, weatherLocal.city)
+                })
+
             }
         }
     }

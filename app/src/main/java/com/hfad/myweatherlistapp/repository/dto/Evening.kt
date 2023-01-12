@@ -1,8 +1,11 @@
 package com.hfad.myweatherlistapp.repository.dto
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Evening(
     @SerializedName("cloudness")
     val cloudness: Double,
@@ -52,4 +55,4 @@ data class Evening(
     val windGust: Double,
     @SerializedName("wind_speed")
     val windSpeed: Double
-)
+) : Parcelable
