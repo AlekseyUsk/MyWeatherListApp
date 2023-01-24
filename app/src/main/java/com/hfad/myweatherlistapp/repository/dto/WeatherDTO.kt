@@ -11,5 +11,4 @@ data class WeatherDTO(
     val fact: Fact,
     @SerializedName("info")
     val info: Info,
-
-): Parcelable
+    ): Parcelable

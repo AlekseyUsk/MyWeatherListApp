@@ -28,13 +28,6 @@ class WeatherListViewModel(
     }
 
     private fun sentRequest(location: Location) {
-        // choiceRepository()
-//        liveData.value = AppState.Loading
-//        Thread {
-//            Thread.sleep(300L)
-//            if ((0..3).random(Random(System.currentTimeMillis()))==10) {
-//                liveData.postValue(AppState.Error(throw IllegalStateException("Что то пошло не так...")))
-//            } else {
                 liveData.postValue(
                     AppState.SuccessMulti(
                         repositoryMultipleWeatherQuery.getListWeather(
@@ -43,8 +36,6 @@ class WeatherListViewModel(
                     )
                 )
             }
-     //   }
-  //  }
 
     fun getWeatherListForRussian(russian: Location.Russian) {
         sentRequest(Location.Russian)

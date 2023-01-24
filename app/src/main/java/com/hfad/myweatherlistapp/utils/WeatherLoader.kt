@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.hfad.myweatherlistapp.BuildConfig
 import com.hfad.myweatherlistapp.repository.dto.WeatherDTO
+import com.hfad.myweatherlistapp.view.details.callback.OnResponse
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
@@ -16,7 +17,7 @@ object WeatherLoader {
 
 
     @RequiresApi(Build.VERSION_CODES.N)
-    fun request(lat: Double, lon: Double, onResponse: (Any) -> Unit): Unit {
+    fun request(lat: Double, lon: Double, onResponse: OnResponse): Unit {
 
         val uri = URL("https://api.weather.yandex.ru/v2/forecast?lat=${lat}&lon=${lon}")
 
@@ -24,7 +25,7 @@ object WeatherLoader {
             var myConnection: HttpsURLConnection? = null
             myConnection = uri.openConnection() as HttpsURLConnection
             try {
-                myConnection.readTimeout = 3000
+                myConnection.readTimeout = 200
                 myConnection.addRequestProperty(YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
                 val handler = Handler(Looper.myLooper()!!)
                 val reader =
@@ -37,5 +38,28 @@ object WeatherLoader {
                 myConnection.disconnect()
             }
         }.start()
+    }
+
+    private fun onResponse(weatherDTO: WeatherDTO?) {}
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun requestSecondVariant(lat: Double, lon: Double, block: (weather: WeatherDTO) -> Unit) {
+        val uri = URL("https://api.weather.yandex.ru/v2/forecast?lat=${lat}=lon${lon}")
+
+        Thread {
+            var myConnection: HttpsURLConnection? = null
+            myConnection = uri.openConnection() as HttpsURLConnection
+            try {
+                myConnection.readTimeout = 200
+                myConnection.addRequestProperty(YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
+                val reader = BufferedReader(InputStreamReader(myConnection.inputStream))
+                val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
+                block(weatherDTO)
+            } catch (e: java.lang.Exception) {
+
+            } finally {
+                myConnection.disconnect()
+            }
+        }
     }
 }
