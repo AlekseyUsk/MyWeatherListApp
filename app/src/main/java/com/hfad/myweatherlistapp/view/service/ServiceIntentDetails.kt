@@ -10,7 +10,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.gson.Gson
 import com.hfad.myweatherlistapp.BuildConfig
 import com.hfad.myweatherlistapp.domain.City
-import com.hfad.myweatherlistapp.repository.dto.WeatherDTO
+import com.hfad.myweatherlistapp.model.list.WeatherDTO
 import com.hfad.myweatherlistapp.utils.YANDEX_API_KEY
 import com.hfad.myweatherlistapp.utils.getLines
 import java.io.BufferedReader

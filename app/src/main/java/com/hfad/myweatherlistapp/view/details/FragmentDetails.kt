@@ -17,7 +17,7 @@ import com.google.gson.Gson
 import com.hfad.myweatherlistapp.BuildConfig
 import com.hfad.myweatherlistapp.databinding.FragmentDetailsBinding
 import com.hfad.myweatherlistapp.domain.Weather
-import com.hfad.myweatherlistapp.repository.dto.WeatherDTO
+import com.hfad.myweatherlistapp.model.list.WeatherDTO
 import com.hfad.myweatherlistapp.utils.YANDEX_API_KEY
 import com.hfad.myweatherlistapp.view.service.BUNDLE_CITY_KEY
 import com.hfad.myweatherlistapp.view.service.BUNDLE_WEATHER_DTO_KEY
@@ -92,30 +92,6 @@ class FragmentDetails : Fragment() {
                     putExtra(BUNDLE_CITY_KEY, weatherLocal.city)
                 })
         }
-            // Синхронный запрос
-//        val client = OkHttpClient() // Клиент
-//        val builder: Request.Builder = Request.Builder() // Создаём строителя запроса
-//        builder.header(YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY) // Создаём заголовок запроса
-//        builder.url("https://api.weather.yandex.ru/v2/forecast?lat=${weatherLocal.city.lat}&lon=${weatherLocal.city.lon}") // Формируем URL
-//        val request: Request = builder.build() // Создаём запрос
-//        val call: Call = client.newCall(request) // Ставим запрос в очередь и отправляем
-//        Thread {
-//            val response = call.execute()
-//            if (response.isSuccessful) {
-//
-//            }
-//            if (response.code in 200..299) {
-//                response.body?.let {
-//                    val responseString = it.string()
-//                    val weatherDTO = Gson().fromJson((responseString), WeatherDTO::class.java)
-//                    weatherLocal.feelsLike = weatherDTO.fact.feelsLike
-//                    weatherLocal.temperature = weatherDTO.fact.temp
-//                    requireActivity().runOnUiThread {
-//                        renderData(weatherLocal)
-//                    }
-//                }
-//            }
-//        }.start()
             // Асинхронный запрос
         val client = OkHttpClient() // Клиент
         val builder: Request.Builder = Request.Builder() // Создаём строителя запроса

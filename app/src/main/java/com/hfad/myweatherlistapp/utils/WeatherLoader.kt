@@ -6,7 +6,7 @@ import android.os.Looper
 import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.hfad.myweatherlistapp.BuildConfig
-import com.hfad.myweatherlistapp.repository.dto.WeatherDTO
+import com.hfad.myweatherlistapp.model.list.WeatherDTO
 import com.hfad.myweatherlistapp.view.details.callback.OnResponse
 import java.io.BufferedReader
 import java.io.InputStreamReader

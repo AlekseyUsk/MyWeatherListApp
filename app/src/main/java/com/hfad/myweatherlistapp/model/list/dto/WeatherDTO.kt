@@ -1,4 +1,4 @@
-package com.hfad.myweatherlistapp.repository.dto
+package com.hfad.myweatherlistapp.model.list
 
 
 import android.os.Parcelable

@@ -32,9 +32,6 @@
         <service
             android:name=".view.service.ServiceIntentDetails"
             android:exported="true" />
-        <service
-            android:name=".homeTrening.TestService"
-            android:exported="true" />
 
         <receiver
             android:name=".view.details.broadcastReceiver.MyBroadcastReceiver"

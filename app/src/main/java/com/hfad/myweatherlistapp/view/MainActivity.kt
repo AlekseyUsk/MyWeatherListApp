@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.hfad.myweatherlistapp.R
-import com.hfad.myweatherlistapp.homeTrening.TestService
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,12 +16,9 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, WeatherListFragment.newInstance())
+                .replace(R.id.container, CitiesListFragment.newInstance())
                 .commit()
         }
-            //Дома тренировался
-        startService(Intent(this, TestService::class.java).apply {
-        })
 
         registerReceiver(object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
