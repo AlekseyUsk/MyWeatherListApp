@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import coil.load
 import com.hfad.myweatherlistapp.databinding.FragmentDetailsBinding
 import com.hfad.myweatherlistapp.domain.Weather
 import com.hfad.myweatherlistapp.viewmodel.list.details.DetailsFragmentAppState
@@ -72,6 +73,8 @@ class FragmentDetails : Fragment() {
                     temperatureValue.text = weatherDTO.fact.temp.toString()
                     feelsLikeValue.text = weatherDTO.fact.feelsLike.toString()
                     cityCoordinates.text = "${weatherLocal.city.lat}/${weatherLocal.city.lon}"
+                    icon.load("https://i.gifer.com/DYD.gif"){
+                    }
                 }
             }
         }

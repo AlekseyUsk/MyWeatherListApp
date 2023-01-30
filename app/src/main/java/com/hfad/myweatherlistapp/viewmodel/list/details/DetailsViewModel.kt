@@ -6,8 +6,8 @@ import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hfad.myweatherlistapp.model.list.WeatherDTO
-import com.hfad.myweatherlistapp.model.list.repository.retrofit.RepositoryDetailsRetrofitImpl
 import com.hfad.myweatherlistapp.model.list.repository.RepositoryDetailsWeatherLoaderImpl
+import com.hfad.myweatherlistapp.model.list.repository.retrofit.RepositoryDetailsRetrofitImpl
 import com.hfad.myweatherlistapp.model.repository.MyLargeSuperCallback
 import com.hfad.myweatherlistapp.model.repository.RepositoryDetails
 import com.hfad.myweatherlistapp.model.repository.RepositoryDetailsLocalImpl
