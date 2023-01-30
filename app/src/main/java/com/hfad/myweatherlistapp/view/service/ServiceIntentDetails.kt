@@ -37,7 +37,7 @@ class ServiceIntentDetails : IntentService("") {
                     myConnection = uri.openConnection() as HttpsURLConnection
                     try {
                         myConnection.readTimeout = 3000
-                        myConnection.addRequestProperty(YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
+                        myConnection.addRequestProperty(YANDEX_API_KEY, BuildConfig.BUILD_CONFIG_WEATHER_API_KEY)
                         val handler = Handler(Looper.myLooper()!!)
                         val reader =
                             BufferedReader(InputStreamReader(myConnection.inputStream)) // читаем поток запроса

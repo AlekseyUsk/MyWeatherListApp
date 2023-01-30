@@ -11,6 +11,4 @@ data class Info(
     val lat: Double,
     @SerializedName("lon")
     val lon: Double,
-    @SerializedName("url")
-    val url: String,
 ) : Parcelable

@@ -22,7 +22,7 @@ android {
         Properties properties = new Properties()
         properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
         def apikey= properties.getProperty("yandex_weather_api_Key","")
-        it.buildConfigField "String", "WEATHER_API_KEY",apikey
+        it.buildConfigField "String", "BUILD_CONFIG_WEATHER_API_KEY",apikey
     }
 
 
