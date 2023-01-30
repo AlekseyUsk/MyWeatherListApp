@@ -28,21 +28,22 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        
+
         <service
             android:name=".view.service.ServiceIntentDetails"
             android:exported="true" />
 
-        <receiver android:name=".view.details.broadcastReceiver.MyBroadcastReceiver"
+        <receiver
+            android:name=".view.details.broadcastReceiver.MyBroadcastReceiver"
             android:exported="true">
             <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
             </intent-filter>
-    </receiver>
+        </receiver>
 
 
-</application>
-
+    </application>
 
 
 </manifest>

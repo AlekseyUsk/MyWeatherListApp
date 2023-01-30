@@ -10,7 +10,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.gson.Gson
 import com.hfad.myweatherlistapp.BuildConfig
 import com.hfad.myweatherlistapp.domain.City
-import com.hfad.myweatherlistapp.repository.dto.WeatherDTO
+import com.hfad.myweatherlistapp.model.list.WeatherDTO
 import com.hfad.myweatherlistapp.utils.YANDEX_API_KEY
 import com.hfad.myweatherlistapp.utils.getLines
 import java.io.BufferedReader
@@ -37,7 +37,7 @@ class ServiceIntentDetails : IntentService("") {
                     myConnection = uri.openConnection() as HttpsURLConnection
                     try {
                         myConnection.readTimeout = 3000
-                        myConnection.addRequestProperty(YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
+                        myConnection.addRequestProperty(YANDEX_API_KEY, BuildConfig.BUILD_CONFIG_WEATHER_API_KEY)
                         val handler = Handler(Looper.myLooper()!!)
                         val reader =
                             BufferedReader(InputStreamReader(myConnection.inputStream)) // читаем поток запроса

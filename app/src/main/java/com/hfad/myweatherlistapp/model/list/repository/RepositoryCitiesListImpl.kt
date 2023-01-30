@@ -1,11 +1,11 @@
-package com.hfad.myweatherlistapp.repository
+package com.hfad.myweatherlistapp.model.repository
 
 import com.hfad.myweatherlistapp.domain.Weather
 import com.hfad.myweatherlistapp.domain.getRussianCities
 import com.hfad.myweatherlistapp.domain.getWorldCities
 
-class RepositoryLocalImpl : RepositoryOneWeather,RepositoryMultipleWeatherQuery {
-    override fun getListWeather(location: Location): List<Weather> {
+class RepositoryCitiesListImpl : RepositoryCitiesList {
+    override fun getListCities(location: Location): List<Weather> {
         return when (location) {
             Location.Russian -> {
                 getRussianCities()
@@ -14,9 +14,5 @@ class RepositoryLocalImpl : RepositoryOneWeather,RepositoryMultipleWeatherQuery 
                 getWorldCities()
             }
         }
-    }
-
-    override fun getWeather(lat: Double, lon: Double): Weather {
-        return Weather()
     }
 }
