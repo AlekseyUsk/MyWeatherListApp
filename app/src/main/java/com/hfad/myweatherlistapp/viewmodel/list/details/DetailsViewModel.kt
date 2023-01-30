@@ -6,7 +6,7 @@ import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hfad.myweatherlistapp.model.list.WeatherDTO
-import com.hfad.myweatherlistapp.model.list.repository.RepositoryDetailsRetrofitImpl
+import com.hfad.myweatherlistapp.model.list.repository.retrofit.RepositoryDetailsRetrofitImpl
 import com.hfad.myweatherlistapp.model.list.repository.RepositoryDetailsWeatherLoaderImpl
 import com.hfad.myweatherlistapp.model.repository.MyLargeSuperCallback
 import com.hfad.myweatherlistapp.model.repository.RepositoryDetails
@@ -24,9 +24,10 @@ class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppS
     }
 
     private fun choiceRepository() {
-        repository = when (30) {
+        repository = when (2) {
             1 -> { RepositoryDetailsOkHttpImpl()}
-            2 -> { RepositoryDetailsRetrofitImpl()}
+            2 -> { RepositoryDetailsRetrofitImpl()
+            }
             3 -> { RepositoryDetailsWeatherLoaderImpl()}
             else -> { RepositoryDetailsLocalImpl()}
         }
