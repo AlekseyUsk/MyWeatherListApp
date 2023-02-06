@@ -17,7 +17,7 @@ fun interface RepositoryCitiesList{
     fun getListCities(location: Location): List<Weather>
 }
 
-sealed class Location {
+sealed class Location() {
 
     object Russian : Location()
     object World : Location()

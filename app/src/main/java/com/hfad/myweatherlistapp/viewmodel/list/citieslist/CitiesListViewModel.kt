@@ -31,15 +31,24 @@ class CitiesListViewModel(
         )
     }
 
-    fun getWeatherListForRussian(russian: Location.Russian) {
+    fun getWeatherListForRussian() {
         sentRequest(Location.Russian)
     }
 
     fun getWeatherListForWorld() {
         sentRequest(Location.World)
     }
+    fun ChoiceCitiesRussiaAndWorld(isRussia : Boolean):Boolean{
+        if (isRussia == true){
+            sentRequest(Location.Russian)
+        }else{
+            sentRequest(Location.World)
+        }
+        return isRussia
+    }
 
     fun isConnection(): Boolean {
         return false
     }
+
 }

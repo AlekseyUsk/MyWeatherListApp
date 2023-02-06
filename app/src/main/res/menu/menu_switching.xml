@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/retrofit"
+        android:orderInCategory="1"
+        android:title="retrofit"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/okHttp3"
+        android:orderInCategory="2"
+        android:title="okHttp3"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/Https"
+        android:orderInCategory="3"
+        android:title="Https"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/local"
+        android:orderInCategory="4"
+        android:title="local repository"
+        app:showAsAction="never" />
+</menu>

@@ -1,6 +1,7 @@
 package com.hfad.myweatherlistapp.viewmodel.list.details
 
 
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.MutableLiveData
@@ -23,9 +24,10 @@ class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppS
         return liveData
     }
 
-    private fun choiceRepository() {
-        repository = when (2) {
-            1 -> { RepositoryDetailsOkHttpImpl()}
+   private fun choiceRepository() {
+        repository = when (1) {
+            1 -> {
+                RepositoryDetailsOkHttpImpl()}
             2 -> { RepositoryDetailsRetrofitImpl()
             }
             3 -> { RepositoryDetailsWeatherLoaderImpl()}

@@ -1,9 +1,8 @@
 package com.hfad.myweatherlistapp.view
 
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +10,8 @@ import com.hfad.myweatherlistapp.R
 import com.hfad.myweatherlistapp.databinding.FragmentWeatherListBinding
 import com.hfad.myweatherlistapp.domain.Weather
 import com.hfad.myweatherlistapp.model.repository.Location
+import com.hfad.myweatherlistapp.utils.SP_BD_IS_RUSSIA
+import com.hfad.myweatherlistapp.utils.SP_KEY_IS_RUSSIA
 import com.hfad.myweatherlistapp.view.details.FragmentDetails
 import com.hfad.myweatherlistapp.view.details.callback.OnItemClick
 import com.hfad.myweatherlistapp.viewmodel.list.citieslist.CitiesListViewModel
@@ -48,7 +49,7 @@ class CitiesListFragment : Fragment(), OnItemClick {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
 
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(CitiesListViewModel::class.java)
@@ -58,15 +59,28 @@ class CitiesListFragment : Fragment(), OnItemClick {
             }
         })
 
+
+        //TODO SP НЕМОГУ РАЗОБРАТЬСЯ КАК СДЕЛАТЬ СОХРАНЕНИЕ ВЫБОРА ГОРОДОВ МИРА ИЛИ РФ
+        val sharedPreferences = requireActivity().getSharedPreferences(SP_BD_IS_RUSSIA, Context.MODE_PRIVATE)
+
         binding.floatingBtn.setOnClickListener {
             isRussia = !isRussia
-            if (isRussia) {
-                viewModel.getWeatherListForRussian(Location.Russian)
-            } else {
+            if (isRussia){
+                viewModel.getWeatherListForRussian()
+            }else{
                 viewModel.getWeatherListForWorld()
             }
+            sharedPreferences.edit().apply(){
+                putBoolean(SP_KEY_IS_RUSSIA, isRussia)
+                isRussia = sharedPreferences.getBoolean(SP_KEY_IS_RUSSIA,isRussia)
+                apply()
+            }
         }
-        viewModel.getWeatherListForRussian(Location.Russian)
+        viewModel.ChoiceCitiesRussiaAndWorld(isRussia)
+
+
+
+
     }
 
     private fun renderData(cityListFragmentAppState: CityListFragmentAppState) {   //реакция на запросы
