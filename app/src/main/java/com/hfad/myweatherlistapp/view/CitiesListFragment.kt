@@ -2,14 +2,15 @@ package com.hfad.myweatherlistapp.view
 
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hfad.myweatherlistapp.R
 import com.hfad.myweatherlistapp.databinding.FragmentWeatherListBinding
 import com.hfad.myweatherlistapp.domain.Weather
-import com.hfad.myweatherlistapp.model.repository.Location
 import com.hfad.myweatherlistapp.utils.SP_BD_IS_RUSSIA
 import com.hfad.myweatherlistapp.utils.SP_KEY_IS_RUSSIA
 import com.hfad.myweatherlistapp.view.details.FragmentDetails

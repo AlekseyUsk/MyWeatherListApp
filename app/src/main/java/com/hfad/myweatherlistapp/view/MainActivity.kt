@@ -6,11 +6,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import com.hfad.myweatherlistapp.R
-import com.hfad.myweatherlistapp.utils.SP_BD_IS_RUSSIA
-import com.hfad.myweatherlistapp.utils.SP_KEY_IS_RUSSIA
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +27,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d("@@@", "onReceive(MainActivity)onReceive()${Thread.currentThread()}")
             }
         }, IntentFilter("answer"))
-        
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

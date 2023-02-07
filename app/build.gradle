@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 
 }
 
@@ -54,9 +55,8 @@ android {
 dependencies {
 
     //Room
-    apply plugin: 'kotlin-android'
+    implementation 'androidx.room:room-compiler:2.5.0'
     implementation 'androidx.room:room-runtime:2.5.0'
-    apply plugin: 'kotlin-kapt'
 
     //coil
     implementation 'io.coil-kt:coil:2.2.2'

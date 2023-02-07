@@ -1,7 +1,6 @@
 package com.hfad.myweatherlistapp.viewmodel.list.details
 
 
-import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.MutableLiveData
