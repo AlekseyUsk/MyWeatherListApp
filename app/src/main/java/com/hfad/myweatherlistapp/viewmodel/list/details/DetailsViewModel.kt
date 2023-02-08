@@ -5,18 +5,16 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.hfad.myweatherlistapp.model.list.WeatherDTO
-import com.hfad.myweatherlistapp.model.list.repository.RepositoryDetailsWeatherLoaderImpl
-import com.hfad.myweatherlistapp.model.list.repository.retrofit.RepositoryDetailsRetrofitImpl
-import com.hfad.myweatherlistapp.model.repository.MyLargeSuperCallback
-import com.hfad.myweatherlistapp.model.repository.RepositoryDetails
-import com.hfad.myweatherlistapp.model.repository.RepositoryDetailsLocalImpl
-import com.hfad.myweatherlistapp.model.repository.RepositoryDetailsOkHttpImpl
+import com.hfad.myweatherlistapp.domain.Weather
+import com.hfad.myweatherlistapp.model.list.repository.RepositoryLocationToOneWeatherWeatherLoaderImpl
+import com.hfad.myweatherlistapp.model.list.repository.retrofit.RepositoryLocationToOneWeatherRetrofitImpl
+import com.hfad.myweatherlistapp.model.repository.*
 import java.io.IOException
 
 class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppState> = MutableLiveData<DetailsFragmentAppState>(),) : ViewModel() {
 
-    lateinit var repository: RepositoryDetails
+    lateinit var repositoryLocationToOneWeather: RepositoryLocationToOneWeather
+    lateinit var repositoryWeatherAddable: RepositoryWeatherAddable
 
     fun getLiveData(): MutableLiveData<DetailsFragmentAppState> {
         choiceRepository()
@@ -24,26 +22,47 @@ class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppS
     }
 
    private fun choiceRepository() {
-        repository = when (1) {
-            1 -> {
-                RepositoryDetailsOkHttpImpl()}
-            2 -> { RepositoryDetailsRetrofitImpl()
-            }
-            3 -> { RepositoryDetailsWeatherLoaderImpl()}
-            else -> { RepositoryDetailsLocalImpl()}
-        }
+       if (isConnection()) {
+           repositoryLocationToOneWeather = when (2) {
+               1 -> { RepositoryLocationToOneWeatherOkHttpImpl() }
+               2 -> { RepositoryLocationToOneWeatherRetrofitImpl() }
+               3 -> { RepositoryLocationToOneWeatherWeatherLoaderImpl() }
+               4 -> { RepositoryWeatherRoomImpl() }
+               else -> { RepositoryLocationToOneWeatherLocalImpl() }
+           }
+           repositoryWeatherAddable = when (0) {
+               1 -> { RepositoryWeatherRoomImpl() }
+               else -> { RepositoryWeatherRoomImpl() }
+           }
+       }else{
+           repositoryLocationToOneWeather = when (1) {
+               1 -> { RepositoryWeatherRoomImpl() }
+               2 -> { RepositoryLocationToOneWeatherLocalImpl() }
+               else -> { RepositoryWeatherRoomImpl() }
+           }
+           repositoryWeatherAddable = when (0) {
+               1 -> {
+                   RepositoryWeatherRoomImpl()
+               }
+               else -> {
+                   RepositoryWeatherRoomImpl()
+               }
+           }
+
+       }
+
     }
 
-    fun getWeather(lat: Double, lon: Double) {
-        choiceRepository()
+    fun getWeather(weather: Weather) {
         liveData.value = DetailsFragmentAppState.Loading
-        repository.getWeather(lat,lon,callback)
+        repositoryLocationToOneWeather.getWeather(weather,callback)
     }
 
     val callback = object : MyLargeSuperCallback{
-        override fun onResponse(weatherDTO: WeatherDTO) {
+        override fun onResponse(weather: Weather) {
+            if (isConnection()){ repositoryWeatherAddable.addWeather(weather) }//если есть соед то добавим погоду
             Handler(Looper.getMainLooper()).post{
-                liveData.postValue(DetailsFragmentAppState.Success(weatherDTO))
+                liveData.postValue(DetailsFragmentAppState.Success(weather))
             }
         }
 
@@ -52,9 +71,7 @@ class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppS
         }
 
     }
-
-
-    fun isConnection(): Boolean {
-        return false
+    fun isConnection(): Boolean { //FIXME
+        return true
     }
 }

@@ -2,9 +2,11 @@ package com.hfad.myweatherlistapp.model.list.repository.retrofit
 
 import com.google.gson.GsonBuilder
 import com.hfad.myweatherlistapp.BuildConfig
+import com.hfad.myweatherlistapp.domain.Weather
 import com.hfad.myweatherlistapp.model.list.WeatherDTO
 import com.hfad.myweatherlistapp.model.repository.MyLargeSuperCallback
-import com.hfad.myweatherlistapp.model.repository.RepositoryDetails
+import com.hfad.myweatherlistapp.model.repository.RepositoryLocationToOneWeather
+import com.hfad.myweatherlistapp.utils.bindDTOWithCity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,8 +14,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
-class RepositoryDetailsRetrofitImpl : RepositoryDetails {
-    override fun getWeather(lat: Double, lon: Double, callback: MyLargeSuperCallback) {
+class RepositoryLocationToOneWeatherRetrofitImpl : RepositoryLocationToOneWeather {
+    override fun getWeather(weather: Weather, callback: MyLargeSuperCallback) {
         val retrofitImpl = Retrofit.Builder()
         retrofitImpl.baseUrl("https://api.weather.yandex.ru")
         retrofitImpl.addConverterFactory(
@@ -23,11 +25,11 @@ class RepositoryDetailsRetrofitImpl : RepositoryDetails {
         )
         retrofitImpl.build()
         val api = retrofitImpl.build().create(WeatherAPI::class.java)
-        api.getWeatherRetrofit(BuildConfig.BUILD_CONFIG_WEATHER_API_KEY, lat, lon)
+        api.getWeatherRetrofit(BuildConfig.BUILD_CONFIG_WEATHER_API_KEY, weather.city.lat, weather.city.lon)
             .enqueue(object : Callback<WeatherDTO> {
                 override fun onResponse(call: Call<WeatherDTO>, response: Response<WeatherDTO>) {
                     if (response.isSuccessful && response.body() != null) {
-                        callback.onResponse(response.body()!!)
+                        callback.onResponse(bindDTOWithCity(response.body()!!,weather.city))
                     } else {
                         callback.onFailure(IOException("ошибка 403 404"))
                     }

@@ -1,15 +1,19 @@
 package com.hfad.myweatherlistapp.model.repository
 
 import com.hfad.myweatherlistapp.domain.Weather
-import com.hfad.myweatherlistapp.model.list.WeatherDTO
 import java.io.IOException
 
-fun interface RepositoryDetails {
-    fun getWeather(lat: Double, lon: Double,callback: MyLargeSuperCallback)
+fun interface RepositoryLocationToOneWeather {
+    fun getWeather(weather: Weather,callback: MyLargeSuperCallback)
 }
+// добавления погоды
+fun interface RepositoryWeatherAddable{
+    fun addWeather(weather: Weather)
+}
+
 // один большой калбек для всех
 interface MyLargeSuperCallback{
-    fun onResponse(weatherDTO: WeatherDTO)
+    fun onResponse(weather: Weather)
     fun onFailure(e : IOException)
 }
 
