@@ -69,7 +69,7 @@ class FragmentDetails : Fragment() {
             is DetailsFragmentAppState.Success -> {
                 with(binding) {
                     val weather = detailsFragmentAppState.weatherData
-                    cityName.text = weatherLocal.city.name
+                    cityName.text = weather.city.name
                     temperatureValue.text = weather.temperature.toString()
                     feelsLikeValue.text = weather.feelsLike.toString()
                     cityCoordinates.text = "${weatherLocal.city.lat}/${weatherLocal.city.lon}"

@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hfad.myweatherlistapp.R
-import com.hfad.myweatherlistapp.databinding.FragmentWeatherListBinding
+import com.hfad.myweatherlistapp.databinding.FragmentCitiesListBinding
 import com.hfad.myweatherlistapp.domain.Weather
 import com.hfad.myweatherlistapp.utils.SP_BD_IS_RUSSIA
 import com.hfad.myweatherlistapp.utils.SP_KEY_IS_RUSSIA
@@ -31,8 +31,8 @@ class CitiesListFragment : Fragment(), OnItemClick {
 
     private lateinit var viewModel: CitiesListViewModel
 
-    private var _binding: FragmentWeatherListBinding? = null
-    private val binding: FragmentWeatherListBinding
+    private var _binding: FragmentCitiesListBinding? = null
+    private val binding: FragmentCitiesListBinding
         get() {
             return _binding!!
         }
@@ -46,7 +46,7 @@ class CitiesListFragment : Fragment(), OnItemClick {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWeatherListBinding.inflate(inflater)
+        _binding = FragmentCitiesListBinding.inflate(inflater)
         return binding.root
     }
 
@@ -60,9 +60,9 @@ class CitiesListFragment : Fragment(), OnItemClick {
             }
         })
 
-
         //TODO SP НЕМОГУ РАЗОБРАТЬСЯ КАК СДЕЛАТЬ СОХРАНЕНИЕ ВЫБОРА ГОРОДОВ МИРА ИЛИ РФ
-        val sharedPreferences = requireActivity().getSharedPreferences(SP_BD_IS_RUSSIA, Context.MODE_PRIVATE)
+        val sp = requireActivity().getSharedPreferences(SP_BD_IS_RUSSIA, Context.MODE_PRIVATE)
+        isRussia = sp.getBoolean(SP_KEY_IS_RUSSIA,isRussia)
 
         binding.floatingBtn.setOnClickListener {
             isRussia = !isRussia
@@ -71,9 +71,8 @@ class CitiesListFragment : Fragment(), OnItemClick {
             }else{
                 viewModel.getWeatherListForWorld()
             }
-            sharedPreferences.edit().apply(){
+            sp.edit().apply(){
                 putBoolean(SP_KEY_IS_RUSSIA, isRussia)
-                isRussia = sharedPreferences.getBoolean(SP_KEY_IS_RUSSIA,isRussia)
                 apply()
             }
         }
@@ -104,12 +103,12 @@ class CitiesListFragment : Fragment(), OnItemClick {
         }
     }
 
-    fun FragmentWeatherListBinding.loading() {
+    fun FragmentCitiesListBinding.loading() {
         this.FragmentLoadingLayout.visibility = View.VISIBLE
         this.floatingBtn.visibility = View.GONE
     }
 
-    fun FragmentWeatherListBinding.showResult() {
+    fun FragmentCitiesListBinding.showResult() {
         this.FragmentLoadingLayout.visibility = View.GONE
         this.floatingBtn.visibility = View.VISIBLE
     }

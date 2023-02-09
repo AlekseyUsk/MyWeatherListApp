@@ -1,7 +1,6 @@
 package com.hfad.myweatherlistapp.viewmodel.list.details
 
 import com.hfad.myweatherlistapp.domain.Weather
-import com.hfad.myweatherlistapp.model.list.WeatherDTO
 
 sealed class DetailsFragmentAppState {
 

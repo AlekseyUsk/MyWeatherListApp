@@ -22,7 +22,6 @@ fun interface RepositoryCitiesList{
 }
 
 sealed class Location() {
-
     object Russian : Location()
     object World : Location()
 }
